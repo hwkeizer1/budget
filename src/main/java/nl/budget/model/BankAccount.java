@@ -20,6 +20,7 @@ public class BankAccount {
 			IbanUtil.validate(iban);
 			this.iban = Iban.valueOf(iban);
 			this.bankAccountType = bankAccountType;
+			setValid(true);
 		} catch (IbanFormatException | InvalidCheckDigitException | UnsupportedCountryException e) {
 			this.iban = null;
 			setValid(false);
