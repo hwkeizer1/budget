@@ -1,4 +1,4 @@
-package nl.budget.application;
+package nl.budget.views;
 
 import org.springframework.context.ApplicationEvent;
 

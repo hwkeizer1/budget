@@ -6,6 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import nl.budget.views.StageReadyEvent;
 
 public class BudgetFX extends Application {
 
