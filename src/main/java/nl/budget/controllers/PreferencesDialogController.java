@@ -45,7 +45,6 @@ public class PreferencesDialogController {
 	
 	public void show() {
 		labelDownloadLocation.setText(prefs.getDownloadLocation().toString());
-
 		stage.show();
 	}
 	

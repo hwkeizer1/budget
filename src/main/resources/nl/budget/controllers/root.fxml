@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
@@ -12,7 +13,11 @@
         <menus>
           <Menu mnemonicParsing="false" text="Administratie">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Programma beeindigen" />
+                  <MenuItem mnemonicParsing="false" onAction="#showCreateAdministrationDialog" text="Nieuw" />
+                  <MenuItem fx:id="loadAdministration" mnemonicParsing="false" text="Openen" />
+                  <MenuItem fx:id="closeAdministration" mnemonicParsing="false" text="Sluiten" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Alles afsluiten" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Budget">
@@ -27,7 +32,7 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Instellingen">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#handleSetPreferencesDialog" text="Wijzigen" />
+                <MenuItem mnemonicParsing="false" onAction="#showPreferencesDialog" text="Wijzigen" />
               </items>
             </Menu>
         </menus>
