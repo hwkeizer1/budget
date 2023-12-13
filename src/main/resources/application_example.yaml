@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: <mysql database connection string>
+    username: ******
+    password: ******
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+   
+### Logging
+logging:
+  level:
+    '[nl.budget]':  ERROR
