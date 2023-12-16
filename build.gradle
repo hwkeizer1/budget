@@ -37,7 +37,7 @@ dependencies {
     implementation 'org.openjfx:javafx-base:21.0.1'
     implementation 'org.openjfx:javafx-web:21.0.1'
     implementation 'org.openjfx:javafx-swing:21.0.1'
-    
+    implementation 'nl.garvelink.oss:iban:1.14.0'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'

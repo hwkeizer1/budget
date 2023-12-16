@@ -20,7 +20,7 @@ public class PrimaryStageInitializer implements ApplicationListener<StageReadyEv
   @Override
   public void onApplicationEvent(StageReadyEvent event) {
     Stage stage = event.stage;
-    Scene scene = new Scene(rootView.asParent());
+    Scene scene = new Scene(rootView.asParent(), 1000, 600);
     scene.getStylesheets().clear();
     scene.getStylesheets().add(
     		getClass().getResource("/css/styles.css").toExternalForm()
@@ -29,6 +29,6 @@ public class PrimaryStageInitializer implements ApplicationListener<StageReadyEv
     stage.setScene(scene);
     stage.setTitle(ViewMessage.PROGRAM_TITLE);
     stage.show();
-    stage.setMaximized(true);
+//    stage.setMaximized(true);
   }
 }
