@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -65,4 +66,14 @@ public class Transaction {
 	public String getTransactionId() {
 		return journalDate.format(formatter) + String.valueOf(number);
 	}
+
+	@Override
+	public String toString() {
+		return "Transaction [formatter=" + formatter + ", id=" + id + ", journalDate=" + journalDate + ", number="
+				+ number + ", transactionId=" + transactionId + ", contraAccount=" + contraAccount + ", balance="
+				+ balance + ", currencyType=" + currencyType + ", amount=" + amount + ", description=" + description
+				+ "]";
+	}
+
+
 }

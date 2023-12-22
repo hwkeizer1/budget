@@ -28,6 +28,12 @@ public class Account {
 	
 	@OneToMany(mappedBy="account")
 	private List<Transaction> transactions;
+
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", iban=" + iban + ", accountHolder=" + accountHolder + ", description="
+				+ description + "]";
+	}
 	
 	
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.budget.view.RootView;
+import nl.budget.view.ViewConstant;
 import nl.budget.view.ViewMessage;
 
 @Component
@@ -27,8 +28,8 @@ public class PrimaryStageInitializer implements ApplicationListener<StageReadyEv
     		);
     
     stage.setScene(scene);
-    stage.setTitle(ViewMessage.PROGRAM_TITLE);
+    stage.setTitle(ViewConstant.PROGRAM_TITLE);
     stage.show();
-//    stage.setMaximized(true);
+    stage.setMaximized(true);
   }
 }
