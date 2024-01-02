@@ -37,6 +37,7 @@ public class Transaction implements Externalizable {
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 	
 	private final LongProperty id = new SimpleLongProperty();
+	
 	// TODO: find alternative for NotBlank
 //	@NotBlank
 	private final ObjectProperty<LocalDate> journalDate = new SimpleObjectProperty<>();
