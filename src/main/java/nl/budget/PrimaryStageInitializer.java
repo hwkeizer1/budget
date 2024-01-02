@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.budget.view.RootView;
 import nl.budget.view.ViewConstant;
-import nl.budget.view.ViewMessage;
 
 @Component
 public class PrimaryStageInitializer implements ApplicationListener<StageReadyEvent> {

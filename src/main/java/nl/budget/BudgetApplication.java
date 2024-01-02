@@ -58,8 +58,6 @@ public class BudgetApplication {
 				transaction.setJournalDate(LocalDate.of(2023, 1, 19));
 				transaction.setNumber(22469412);
 				transaction = transactionRepository.save(transaction);
-				log.debug("UNIEKE TRANSACTIE DATUM: {}", transaction.getJournalDate().toString());
-				log.debug("UNIEKE TRANSACTIE NUMMER: {}", transaction.getNumber());
 				log.debug("UNIEKE TRANSACTIE ID: {}", transaction.getTransactionId());
 			}
 		};
