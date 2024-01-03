@@ -38,3 +38,5 @@ out/
 
 ### Project ###
 application.yaml
+default.properties
+budget.properties

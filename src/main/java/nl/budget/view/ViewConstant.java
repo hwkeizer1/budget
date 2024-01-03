@@ -1,8 +1,18 @@
 package nl.budget.view;
 
 public class ViewConstant {
+	
+	private ViewConstant() {}
 
+	// Application
 	public static final String PROGRAM_TITLE = "Budget versie 0.0.1";
+	public static final String DEFAULT_CONFIG_FILE = "default.properties";
+	public static final String CONFIG_FILE = "budget.properties";
+	
+	// Configuration properties
+	public static final String BACKUP_FOLDER = "backup-folder";
+	public static final String BACKUPS_TO_KEEP = "backups-to-keep";
+	public static final String DOWNLOAD_FOLDER = "download-folder";
 	
 	// Menu items
 	public static final String BUDGET = "Budget";
