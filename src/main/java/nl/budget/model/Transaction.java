@@ -183,10 +183,8 @@ public class Transaction implements Externalizable {
 	
 	@Override
 	public String toString() {
-		return "Transaction [formatter=" + formatter + ", id=" + id + ", journalDate=" + journalDate + ", number="
-				+ number + ", transactionId=" + getTransactionId() + ", contraAccount=" + contraAccount + ", balance="
-				+ balance + ", currencyType=" + currencyType + ", amount=" + amount + ", description=" + description
-				+ "]";
+		return getId()+", "+getJournalDate()+", "+getNumber()+", "+getTransactionId()+", "+getContraAccount() 
+				+", "+getBalance()+","+getCurrencyType()+", "+getAmount()+","+getDescription();
 	}
 
 	@Override

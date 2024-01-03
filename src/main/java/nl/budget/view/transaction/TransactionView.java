@@ -10,7 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import nl.budget.model.Transaction;
-import nl.budget.service.TransactionService;
+import nl.budget.service.transaction.TransactionService;
 import nl.budget.view.AbstractView;
 import nl.budget.view.ViewConstant;
 
@@ -24,6 +24,10 @@ public class TransactionView extends AbstractView {
 	public TransactionView(TransactionService transactionService) {
 		this.transactionService = transactionService;
 		initComponents();
+	}
+	
+	public void searchNewTransactions() {
+		transactionService.searchNewTransactions();
 	}
 
 	@Override

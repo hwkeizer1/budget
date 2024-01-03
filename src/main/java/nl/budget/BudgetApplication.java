@@ -9,14 +9,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import javafx.application.Application;
-import lombok.extern.slf4j.Slf4j;
 import nl.budget.model.Account;
 import nl.budget.model.Transaction;
 import nl.budget.repository.AccountRepository;
 import nl.budget.repository.TransactionRepository;
 import nl.garvelink.iban.IBAN;
 
-@Slf4j
 @SpringBootApplication
 public class BudgetApplication {
 
@@ -39,14 +37,15 @@ public class BudgetApplication {
 		return args -> {
 			IBAN iban = IBAN.valueOf("NL02ABNA0123456789");
 			Account account = new Account();
-			if (accountRepository.findByIban(iban.toString()).isEmpty()) {
-				account.setIban(iban.toString());
+			if (accountRepository.findByIban(iban.toPlainString()).isEmpty()) {
+				account.setIban(iban.toPlainString());
 				account.setAccountHolder("M.Pietersen");
 				account.setDescription("betaalrekening");
 				accountRepository.save(account);
 			} else {
-				account = accountRepository.findByIban(iban.toString()).get();
+				account = accountRepository.findByIban(iban.toPlainString()).get();
 			}
+			
 			if (!transactionRepository.existsByJournalDateAndNumber(LocalDate.of(2023, 1, 19), 22469412)) {
 				Transaction transaction = new Transaction();
 				transaction.setAccount(account);
@@ -58,7 +57,6 @@ public class BudgetApplication {
 				transaction.setJournalDate(LocalDate.of(2023, 1, 19));
 				transaction.setNumber(22469412);
 				transaction = transactionRepository.save(transaction);
-				log.debug("UNIEKE TRANSACTIE ID: {}", transaction.getTransactionId());
 			}
 		};
 	}

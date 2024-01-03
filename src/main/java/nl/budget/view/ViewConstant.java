@@ -16,8 +16,14 @@ public class ViewConstant {
 	
 	// Menu items
 	public static final String BUDGET = "Budget";
+	public static final String CLOSE_PROGRAM = "Programma afsluiten";
+	
 	public static final String TRANSACTIONS = "Transacties";
+	public static final String TRANSACTIONS_OVERVIEW = "Overzicht";
+	public static final String SEARCH_NEW_TRANSACTIONS = "Zoek nieuwe transacties";
+	
 	public static final String POSTS = "Posten";
+	
 	
 	// Table columns
 	public static final String TRANSACTIONS_DATE = "Datum";

@@ -12,42 +12,49 @@ import javafx.collections.ObservableList;
 
 public class ListService<T> {
 
-	  protected JpaRepository<T, Long> repository;
-	  protected ObservableList<T> observableList;
-	  protected Comparator<T> comparator;
+	protected JpaRepository<T, Long> repository;
+	protected ObservableList<T> observableList;
+	protected Comparator<T> comparator;
 
-	  public ObservableList<T> getObservableList() {
-	    return FXCollections.unmodifiableObservableList(observableList);
-	  }
+	public ObservableList<T> getObservableList() {
+		return FXCollections.unmodifiableObservableList(observableList);
+	}
 
-	  public List<T> getList() {
-	    return Collections.unmodifiableList(repository.findAll());
-	  }
+	public List<T> getList() {
+		return Collections.unmodifiableList(repository.findAll());
+	}
 
-	  public void addListener(ListChangeListener<T> listener) {
-	    observableList.addListener(listener);
-	  }
+	public void addListener(ListChangeListener<T> listener) {
+		observableList.addListener(listener);
+	}
 
-	  public void removeChangeListener(ListChangeListener<T> listener) {
-	    observableList.removeListener(listener);
-	  }
+	public void removeChangeListener(ListChangeListener<T> listener) {
+		observableList.removeListener(listener);
+	}
 
-	  T save(T o) {
-	    T createdObject = repository.save(o);
-	    observableList.add(createdObject);
-	    FXCollections.sort(observableList, comparator);
-	    return createdObject;
-	  }
+	protected List<T> saveAll(Iterable<T> collection) {
+		List<T> addedList = repository.saveAll(collection);
+		observableList.addAll(addedList);
+		FXCollections.sort(observableList, comparator);
+		return addedList;
+	}
 
-	  T update(T o) {
-	    T update = repository.save(o);
-	    observableList.set(observableList.lastIndexOf(o), update);
-	    FXCollections.sort(observableList, comparator);
-	    return update;
-	  }
+	protected T save(T o) {
+		T createdObject = repository.save(o);
+		observableList.add(createdObject);
+		FXCollections.sort(observableList, comparator);
+		return createdObject;
+	}
 
-	  void delete(T o) {
-	    repository.delete(o);
-	    observableList.remove(o);
-	  }
+	protected T update(T o) {
+		T update = repository.save(o);
+		observableList.set(observableList.lastIndexOf(o), update);
+		FXCollections.sort(observableList, comparator);
+		return update;
+	}
+
+	protected void delete(T o) {
+		repository.delete(o);
+		observableList.remove(o);
+	}
 }

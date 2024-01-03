@@ -35,6 +35,14 @@ public class RootView {
 		return rootWindow;
 	}
 
+	public void showTransactionView(ActionEvent actionEvent) {
+		rootWindow.setCenter(transactionView.getView());
+	}
+	
+	public void showPostView(ActionEvent actionEvent) {
+		rootWindow.setCenter(postView.getView());
+	}
+	
 	private void initializeRootWindow() {
 		rootWindow = new BorderPane();
 		rootWindow.setTop(menuBar);
@@ -42,24 +50,20 @@ public class RootView {
 
 	private void initializeMenu() {
 		menuBar = new MenuBar();
-		MenuItem transactionMenuItem = new MenuItem(ViewConstant.TRANSACTIONS);
-		transactionMenuItem.setOnAction(this::showTransactionView);
 		
-		MenuItem postMenuItem = new MenuItem(ViewConstant.POSTS);
-		postMenuItem.setOnAction(this::showPostView);
+		Menu budgetMenu = new Menu(ViewConstant.BUDGET);
+		MenuItem exitMenuItem = new MenuItem(ViewConstant.CLOSE_PROGRAM);
+		exitMenuItem.setOnAction((ActionEvent e) -> System.exit(0));
+		budgetMenu.getItems().addAll(exitMenuItem);
 		
+		Menu transactionsMenu = new Menu(ViewConstant.TRANSACTIONS);
+		MenuItem transactionOverviewMenuItem = new MenuItem(ViewConstant.TRANSACTIONS_OVERVIEW);
+		transactionOverviewMenuItem.setOnAction(this::showTransactionView);
+		MenuItem searchTransactionsMenuItem = new MenuItem(ViewConstant.SEARCH_NEW_TRANSACTIONS);
+		searchTransactionsMenuItem.setOnAction(e -> transactionView.searchNewTransactions());
+		transactionsMenu.getItems().addAll(transactionOverviewMenuItem, searchTransactionsMenuItem);
 		
-		Menu budget = new Menu(ViewConstant.BUDGET);
-		budget.getItems().addAll(transactionMenuItem, postMenuItem);
-		
-		menuBar.getMenus().add(budget);
-	}
+		menuBar.getMenus().addAll(budgetMenu, transactionsMenu);
 
-	public void showTransactionView(ActionEvent actionEvent) {
-		rootWindow.setCenter(transactionView.getView());
-	}
-	
-	public void showPostView(ActionEvent actionEvent) {
-		rootWindow.setCenter(postView.getView());
 	}
 }
