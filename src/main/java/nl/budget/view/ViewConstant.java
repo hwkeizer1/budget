@@ -10,12 +10,21 @@ public class ViewConstant {
 	public static final String CONFIG_FILE = "budget.properties";
 	
 	// Configuration properties
-	public static final String BACKUP_FOLDER = "backup-folder";
-	public static final String BACKUPS_TO_KEEP = "backups-to-keep";
-	public static final String DOWNLOAD_FOLDER = "download-folder";
+	public static final String BACKUP_FOLDER_PROP = "backup-folder";
+	public static final String BACKUPS_TO_KEEP_PROP = "backups-to-keep";
+	public static final String DOWNLOAD_FOLDER_PROP = "download-folder";
 	
+	// Configuration dialog
+	public static final String DIALOG_CHANGE_CONFIGURATION = "Instellingen wijzigen";
+	public static final String ELLIPSIS = "...";
+	public static final String BACKUP_FOLDER_LABEL = "Backup folder";
+	public static final String DOWNLOAD_FOLDER_LABEL = "Download folder";
+	public static final String OK_BUTTON_TEXT = "OK";
+	public static final String CANCEL_BUTTON_TEXT = "Annuleren";
+		
 	// Menu items
 	public static final String BUDGET = "Budget";
+	public static final String CONFIGURATION = "Instellingen";
 	public static final String CLOSE_PROGRAM = "Programma afsluiten";
 	
 	public static final String TRANSACTIONS = "Transacties";

@@ -33,7 +33,7 @@ public class AsnTransactionFinder extends AbstractTransactionFinder {
 	}
 	
 	protected List<Path> findTransactionFiles(Account account) {
-		Path downloadPath = Paths.get(ConfigService.getConfigProperty(ViewConstant.DOWNLOAD_FOLDER));
+		Path downloadPath = Paths.get(ConfigService.getConfigProperty(ViewConstant.DOWNLOAD_FOLDER_PROP));
 		List<Path> files = new ArrayList<>();
 		try (Stream<Path> stream = Files.list(downloadPath)) {
 			return stream

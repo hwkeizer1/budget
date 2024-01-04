@@ -7,7 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.BorderPane;
+import nl.budget.view.configuration.ConfigurationDialog;
 import nl.budget.view.post.PostView;
 import nl.budget.view.transaction.TransactionView;
 
@@ -43,6 +45,11 @@ public class RootView {
 		rootWindow.setCenter(postView.getView());
 	}
 	
+	public void showConfigurationDialog(ActionEvent actionEvent) {
+		ConfigurationDialog configurationDialog = new ConfigurationDialog();
+		configurationDialog.showConfigurationDialog();
+	}
+	
 	private void initializeRootWindow() {
 		rootWindow = new BorderPane();
 		rootWindow.setTop(menuBar);
@@ -52,9 +59,13 @@ public class RootView {
 		menuBar = new MenuBar();
 		
 		Menu budgetMenu = new Menu(ViewConstant.BUDGET);
+		MenuItem configMenuItem = new MenuItem(ViewConstant.CONFIGURATION);
+		configMenuItem.setOnAction(this::showConfigurationDialog);
+		SeparatorMenuItem separator = new SeparatorMenuItem();
 		MenuItem exitMenuItem = new MenuItem(ViewConstant.CLOSE_PROGRAM);
 		exitMenuItem.setOnAction((ActionEvent e) -> System.exit(0));
-		budgetMenu.getItems().addAll(exitMenuItem);
+		
+		budgetMenu.getItems().addAll(configMenuItem, separator, exitMenuItem);
 		
 		Menu transactionsMenu = new Menu(ViewConstant.TRANSACTIONS);
 		MenuItem transactionOverviewMenuItem = new MenuItem(ViewConstant.TRANSACTIONS_OVERVIEW);

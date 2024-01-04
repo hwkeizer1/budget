@@ -36,9 +36,9 @@ public class ConfigService {
 	private static Properties createDefaultProperties() {
 		Path defaultConfigPath = Path.of(rootFolder, ViewConstant.DEFAULT_CONFIG_FILE);
 		Properties defaultConfig = new Properties();
-		defaultConfig.setProperty(ViewConstant.DOWNLOAD_FOLDER, rootFolder);
-		defaultConfig.setProperty(ViewConstant.BACKUP_FOLDER, rootFolder);
-		defaultConfig.setProperty(ViewConstant.BACKUPS_TO_KEEP, "5");
+		defaultConfig.setProperty(ViewConstant.DOWNLOAD_FOLDER_PROP, rootFolder);
+		defaultConfig.setProperty(ViewConstant.BACKUP_FOLDER_PROP, rootFolder);
+		defaultConfig.setProperty(ViewConstant.BACKUPS_TO_KEEP_PROP, "5");
 		try {
 			defaultConfig.store(new FileWriter(defaultConfigPath.toString()), null);
 		} catch (IOException e) {
