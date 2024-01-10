@@ -32,28 +32,28 @@ public class ListService<T> {
 		observableList.removeListener(listener);
 	}
 
-	protected List<T> saveAll(Iterable<T> collection) {
+	public List<T> saveAll(Iterable<T> collection) {
 		List<T> addedList = repository.saveAll(collection);
 		observableList.addAll(addedList);
 		FXCollections.sort(observableList, comparator);
 		return addedList;
 	}
 
-	protected T save(T o) {
+	public T save(T o) {
 		T createdObject = repository.save(o);
 		observableList.add(createdObject);
 		FXCollections.sort(observableList, comparator);
 		return createdObject;
 	}
 
-	protected T update(T o) {
+	public T update(T o) {
 		T update = repository.save(o);
 		observableList.set(observableList.lastIndexOf(o), update);
 		FXCollections.sort(observableList, comparator);
 		return update;
 	}
 
-	protected void delete(T o) {
+	public void delete(T o) {
 		repository.delete(o);
 		observableList.remove(o);
 	}

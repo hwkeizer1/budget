@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import nl.budget.model.Account;
 import nl.budget.model.Transaction;
 import nl.budget.repository.AccountRepository;

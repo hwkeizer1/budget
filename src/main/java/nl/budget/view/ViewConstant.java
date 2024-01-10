@@ -14,18 +14,28 @@ public class ViewConstant {
 	public static final String BACKUPS_TO_KEEP_PROP = "backups-to-keep";
 	public static final String DOWNLOAD_FOLDER_PROP = "download-folder";
 	
-	// Configuration dialog
+	// ConfigurationDialog
 	public static final String DIALOG_CHANGE_CONFIGURATION = "Instellingen wijzigen";
 	public static final String ELLIPSIS = "...";
 	public static final String BACKUP_FOLDER_LABEL = "Backup folder";
 	public static final String DOWNLOAD_FOLDER_LABEL = "Download folder";
 	public static final String OK_BUTTON_TEXT = "OK";
 	public static final String CANCEL_BUTTON_TEXT = "Annuleren";
+	
+	// AddAccountConfigurationDialog
+	public static final String DIALOG_ADD_ACCOUNT = "Rekening toevoegen";
+	public static final String IBAN_LABEL = "IBAN";
+	public static final String ACCOUNT_HOLDER_LABEL = "Rekeninghouder";
+	public static final String DESCRIPTION_LABEL = "Omschrijving";
 		
 	// Menu items
 	public static final String BUDGET = "Budget";
 	public static final String CONFIGURATION = "Instellingen";
 	public static final String CLOSE_PROGRAM = "Programma afsluiten";
+	
+	public static final String ACCOUNTS = "Rekeningen";
+	public static final String ACCOUNTS_OVERVIEW = "Overzicht";
+	public static final String NEW_ACCOUNT = "Nieuwe rekening toevoegen";
 	
 	public static final String TRANSACTIONS = "Transacties";
 	public static final String TRANSACTIONS_OVERVIEW = "Overzicht";

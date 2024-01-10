@@ -11,8 +11,12 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -31,7 +35,7 @@ public class ConfigurationDialog {
 		dialog.setTitle(ViewConstant.DIALOG_CHANGE_CONFIGURATION);
 
 		VBox layout = new VBox(10);
-		layout.getChildren().addAll(initializeForm(), createButtonBar());
+		layout.getChildren().addAll(initializeForm(), initializeAccountOverview(), createButtonBar());
 		layout.setPadding(new Insets(15));
 
 		dialog.setScene(new Scene(layout));
@@ -39,9 +43,14 @@ public class ConfigurationDialog {
 		dialog.initModality(Modality.APPLICATION_MODAL);
 		dialog.showAndWait();
 	}
+	
+	private Node initializeAccountOverview() {
+		VBox vbox = new VBox();
+		vbox.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, null, null)));
+		return vbox;
+	}
 
-	private Node initializeForm() {
-	    
+	private Node initializeForm() {   
 		GridPane inputForm = new GridPane();
 		inputForm.setPadding(new Insets(15));
 		inputForm.setHgap(15);
@@ -82,7 +91,7 @@ public class ConfigurationDialog {
 		return buttonBar;
 	}
 
-	public void selectBackupFolder(ActionEvent actionEvent) {
+	private void selectBackupFolder(ActionEvent actionEvent) {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		directoryChooser.setInitialDirectory(new File(ConfigService.getConfigProperty(ViewConstant.BACKUP_FOLDER_PROP)));
 		File directory = directoryChooser.showDialog(dialog);
@@ -91,7 +100,7 @@ public class ConfigurationDialog {
 		}
 	}
 	
-	public void selectDownloadFolder(ActionEvent actionEvent) {
+	private void selectDownloadFolder(ActionEvent actionEvent) {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		directoryChooser.setInitialDirectory(new File(ConfigService.getConfigProperty(ViewConstant.DOWNLOAD_FOLDER_PROP)));
 		File directory = directoryChooser.showDialog(dialog);
@@ -100,7 +109,7 @@ public class ConfigurationDialog {
 		}
 	}
 
-	public void save(ActionEvent actionEvent) {
+	private void save(ActionEvent actionEvent) {
 		ConfigService.setConfigProperty(ViewConstant.BACKUP_FOLDER_PROP, backupFolderTextField.getText());
 		ConfigService.setConfigProperty(ViewConstant.DOWNLOAD_FOLDER_PROP, downloadFolderTextField.getText());
 		dialog.close();

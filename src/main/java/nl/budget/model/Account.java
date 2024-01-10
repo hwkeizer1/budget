@@ -23,77 +23,76 @@ import javafx.beans.property.StringProperty;
 @Entity
 @Access(AccessType.PROPERTY)
 public class Account implements Externalizable {
-	
+
 	private SimpleLongProperty id = new SimpleLongProperty();
-	
+
 	@NotBlank
-	@Column(unique=true)
+	@Column(unique = true)
 	private final StringProperty iban = new SimpleStringProperty();
-	
+
 	private final StringProperty accountHolder = new SimpleStringProperty();
 	private final StringProperty description = new SimpleStringProperty();
-	
-	@OneToMany(mappedBy="account")
+
+	@OneToMany(mappedBy = "account")
 	private List<Transaction> transactions;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id.get();
 	}
-	
+
 	public void setId(Long id) {
 		this.id.set(id);
 	}
-	
+
 	public LongProperty idProperty() {
 		return id;
 	}
-	
+
 	public String getIban() {
 		return iban.get();
 	}
-	
+
 	public void setIban(String iban) {
 		this.iban.set(iban);
 	}
-	
+
 	public StringProperty ibanProperty() {
 		return iban;
 	}
-	
+
 	public String getAccountHolder() {
 		return accountHolder.get();
 	}
-	
+
 	public void setAccountHolder(String accountHolder) {
 		this.accountHolder.set(accountHolder);
 	}
-	
+
 	public StringProperty accountHolderProperty() {
 		return accountHolder;
 	}
-	
+
 	public String getDescription() {
 		return description.get();
 	}
-	
+
 	public void setDescription(String description) {
 		this.description.set(description);
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", iban=" + iban + ", accountHolder=" + accountHolder + ", description="
-				+ description + "]";
+		return "[" + getId() + ", " + getIban() + ", " + getAccountHolder() + ", " + getDescription() + "]";
 	}
 
 	@Override
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		setId(in.readLong());
-		setIban((String)in.readObject());
-		setAccountHolder((String)in.readObject());
-		setDescription((String)in.readObject());
+		setIban((String) in.readObject());
+		setAccountHolder((String) in.readObject());
+		setDescription((String) in.readObject());
 	}
 
 	@Override
