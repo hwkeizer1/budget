@@ -47,6 +47,8 @@ public class Transaction implements Externalizable {
 	
 	private transient ObjectProperty<Account> account = new SimpleObjectProperty<>();
 	
+	private transient ObjectProperty<Post> post = new SimpleObjectProperty<>();
+	
 	private final transient StringProperty contraAccount = new SimpleStringProperty();
 
 	@NotNull
@@ -115,6 +117,20 @@ public class Transaction implements Externalizable {
 	
 	public ObjectProperty<Account> accountProperty() {
 		return account;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="post")
+	public Post getPost() {
+		return post.get();
+	}
+	
+	public void setPost(Post post) {
+		this.post.set(post);
+	}
+	
+	public ObjectProperty<Post> postProperty() {
+		return post;
 	}
 	
 	public String getContraAccount() {

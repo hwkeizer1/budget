@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.math.BigDecimal;
+import java.util.List;
 
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
@@ -13,6 +14,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
@@ -36,6 +38,9 @@ public class Post implements Externalizable {
 	private final transient ObjectProperty<BigDecimal> budget = new SimpleObjectProperty<>();
 	
 	private final transient ObjectProperty<BigDecimal> balance = new SimpleObjectProperty<>();
+	
+	@OneToMany(mappedBy = "post")
+	private List<Transaction> transactions;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
