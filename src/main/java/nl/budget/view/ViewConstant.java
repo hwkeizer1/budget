@@ -53,6 +53,7 @@ public class ViewConstant {
 	public static final String ING = "INGB";
 	
 	// Table columns
+	public static final String TRANSACTIONS_POST = "Post";
 	public static final String TRANSACTIONS_DATE = "Datum";
 	public static final String TRANSACTIONS_NUMBER = "Volgnummer";
 	public static final String TRANSACTIONS_ACCOUNT = "Rekening";

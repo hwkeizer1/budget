@@ -54,6 +54,7 @@ public class TransactionView extends AbstractView {
 		transactionTableView = new TableView<>();
 		transactionTableView.setItems(transactionService.getObservableList());
 		
+		TableColumn<Transaction, String> categoryColumn = new TableColumn<>(ViewConstant.TRANSACTIONS_POST);
 		TableColumn<Transaction, LocalDate> journalDateColumn = new TableColumn<>(ViewConstant.TRANSACTIONS_DATE);
 		TableColumn<Transaction, Number> numberColumn = new TableColumn<>(ViewConstant.TRANSACTIONS_NUMBER);
 		TableColumn<Transaction, String> accountColumn = new TableColumn<>(ViewConstant.TRANSACTIONS_ACCOUNT);
@@ -63,6 +64,7 @@ public class TransactionView extends AbstractView {
 		TableColumn<Transaction, BigDecimal> amountColumn = new TableColumn<>(ViewConstant.TRANSACTIONS_AMOUNT);
 		TableColumn<Transaction, String> descriptionColumn = new TableColumn<>(ViewConstant.TRANSACTIONS_DESCRIPTION);
 		
+		categoryColumn.setCellValueFactory(c -> c.getValue().postProperty().get() != null ? c.getValue().postProperty().get().categoryProperty() : null);
 		journalDateColumn.setCellValueFactory(cellData -> cellData.getValue().journalDateProperty());
 		numberColumn.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
 		accountColumn.setCellValueFactory(cellData -> cellData.getValue().accountProperty().get().ibanProperty());
@@ -72,6 +74,7 @@ public class TransactionView extends AbstractView {
 		amountColumn.setCellValueFactory(cellData -> cellData.getValue().amountProperty());
 		descriptionColumn.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
 		
+		transactionTableView.getColumns().add(categoryColumn);
 		transactionTableView.getColumns().add(journalDateColumn);
 		transactionTableView.getColumns().add(numberColumn);
 		transactionTableView.getColumns().add(accountColumn);
