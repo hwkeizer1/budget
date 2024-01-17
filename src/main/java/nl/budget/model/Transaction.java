@@ -19,6 +19,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotNull;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
@@ -33,36 +34,31 @@ import javafx.beans.property.StringProperty;
 @Access(AccessType.PROPERTY)
 public class Transaction implements Externalizable {
 
-	@Transient
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-	
-	private final LongProperty id = new SimpleLongProperty();
-	
-	// TODO: find alternative for NotBlank
-//	@NotBlank
-	private final ObjectProperty<LocalDate> journalDate = new SimpleObjectProperty<>();
 
-	// TODO: find alternative for NotBlank
-//	@NotBlank
-	private final IntegerProperty number = new SimpleIntegerProperty();
+	private transient DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 	
-	private ObjectProperty<Account> account = new SimpleObjectProperty<>();
+	private final transient LongProperty id = new SimpleLongProperty();
 	
-	private final StringProperty contraAccount = new SimpleStringProperty();
+	@NotNull
+	private final transient ObjectProperty<LocalDate> journalDate = new SimpleObjectProperty<>();
+
+	@NotNull
+	private final transient IntegerProperty number = new SimpleIntegerProperty();
 	
-	// TODO: find alternative for NotBlank
-//	@NotBlank
-	private final ObjectProperty<BigDecimal> balance = new SimpleObjectProperty<>();
+	private transient ObjectProperty<Account> account = new SimpleObjectProperty<>();
 	
-	// TODO: find alternative for NotBlank
-//	@NotBlank
-	private final StringProperty currencyType =  new SimpleStringProperty();
+	private final transient StringProperty contraAccount = new SimpleStringProperty();
+
+	@NotNull
+	private final transient ObjectProperty<BigDecimal> balance = new SimpleObjectProperty<>();
+
+	@NotNull
+	private final transient StringProperty currencyType =  new SimpleStringProperty();
 	
-	// TODO: find alternative for NotBlank
-//	@NotBlank
-	private final ObjectProperty<BigDecimal> amount = new SimpleObjectProperty<>();
+	@NotNull
+	private final transient ObjectProperty<BigDecimal> amount = new SimpleObjectProperty<>();
 	
-	private final StringProperty description = new SimpleStringProperty();
+	private final transient StringProperty description = new SimpleStringProperty();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -192,6 +188,11 @@ public class Transaction implements Externalizable {
 		setId(in.readLong());
 		setJournalDate((LocalDate)in.readObject());
 		setAccount((Account)in.readObject());
+		setContraAccount((String)in.readObject());
+		setBalance((BigDecimal)in.readObject());
+		setCurrencyType((String)in.readObject());
+		setAmount((BigDecimal)in.readObject());
+		setDescription((String)in.readObject());
 	}
 
 	@Override
@@ -199,6 +200,11 @@ public class Transaction implements Externalizable {
 		out.writeLong(getId());
 		out.writeObject(getJournalDate());
 		out.writeObject(getAccount());
+		out.writeObject(getContraAccount());
+		out.writeObject(getBalance());
+		out.writeObject(getCurrencyType());
+		out.writeObject(getAmount());
+		out.writeObject(getDescription());
 	}
 
 

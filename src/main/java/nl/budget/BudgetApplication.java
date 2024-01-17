@@ -42,6 +42,7 @@ public class BudgetApplication {
 				account.setIban(iban.toPlainString());
 				account.setAccountHolder("M.Pietersen");
 				account.setDescription("betaalrekening");
+				account.setBalance(new BigDecimal("322.05"));
 				accountRepository.save(account);
 			} else {
 				account = accountRepository.findByIban(iban.toPlainString()).get();

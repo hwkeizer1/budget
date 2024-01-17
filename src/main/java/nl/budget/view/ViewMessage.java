@@ -14,5 +14,6 @@ public final class ViewMessage {
 	public static final String IBAN_NUMBER_INCORRECT = "Het IBAN nummer is ongeldig of bestaat al";
 	public static final String ACCOUNT_HOLDER_REQUIRED = "De rekeninghouder moet ingevuld worden";
 	public static final String DESCRIPTION_REQUIRED = "De omschrijving moet ingevuld worden";
+	public static final String BALANCE_REQUIRED = "De balans moet ingevuld worden";
 	
 }

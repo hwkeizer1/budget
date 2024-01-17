@@ -77,7 +77,7 @@ public class AsnTransactionFinder extends AbstractTransactionFinder {
 		transaction.setBalance(new BigDecimal(field[8]));
 		transaction.setAmount(new BigDecimal(field[10]));
 		transaction.setNumber(Integer.valueOf(field[15]));
-		transaction.setDescription(field[17]);
+		transaction.setDescription(field[17].replaceAll("^\'|\'$", ""));
 		
 		return transaction;
 	}

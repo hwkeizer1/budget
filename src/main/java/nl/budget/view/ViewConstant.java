@@ -29,6 +29,7 @@ public class ViewConstant {
 	public static final String IBAN_LABEL = "IBAN";
 	public static final String ACCOUNT_HOLDER_LABEL = "Rekeninghouder";
 	public static final String DESCRIPTION_LABEL = "Omschrijving";
+	public static final String BALANCE_LABEL = "Huidige balans";
 		
 	// Menu items
 	public static final String BUDGET = "Budget";

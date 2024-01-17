@@ -1,5 +1,7 @@
 package nl.budget.view.account;
 
+import java.math.BigDecimal;
+
 import org.springframework.stereotype.Component;
 
 import javafx.beans.value.ObservableValue;
@@ -34,6 +36,8 @@ public class CreateAccountDialog {
 	private Label accountHolderValidation;
 	private TextField descriptionTextField;
 	private Label descriptionValidation;
+	private TextField balanceTextField;
+	private Label balanceValidation;
 
 	public CreateAccountDialog(AccountService accountService) {
 		this.accountService = accountService;
@@ -70,11 +74,18 @@ public class CreateAccountDialog {
 			descriptionValidation.setVisible(true);
 			isValid &= false;
 		}
+		// TODO: implement currency TextFormatter for this field
+		if (balanceTextField.getText().isEmpty()) {
+			balanceValidation.setText(ViewMessage.BALANCE_REQUIRED);
+			balanceValidation.setVisible(true);
+			isValid &= false;
+		}
 		if (isValid) {
 			Account account = new Account();
 			account.setIban(ibanTextField.getText());
 			account.setAccountHolder(accountHolderTextField.getText());
 			account.setDescription(descriptionTextField.getText());
+			account.setBalance(new BigDecimal(balanceTextField.getText()));
 			accountService.save(account);
 			stage.close();
 		}
@@ -136,6 +147,22 @@ public class CreateAccountDialog {
 		descriptionValidation.getStyleClass().add(ViewCSS.VALIDATION);
 		descriptionValidation.setVisible(false);
 		inputForm.add(descriptionValidation, 1, 5);
+		
+		Label balanceLabel = new Label(ViewConstant.BALANCE_LABEL);
+		inputForm.add(balanceLabel, 0, 6);
+		balanceTextField = new TextField();
+		balanceTextField.setMinWidth(250);
+		balanceTextField.focusedProperty().addListener(
+				(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+					if (newValue) {
+						balanceValidation.setVisible(false);
+					}
+				});
+		inputForm.add(balanceTextField, 1, 6);
+		balanceValidation = new Label();
+		balanceValidation.getStyleClass().add(ViewCSS.VALIDATION);
+		balanceValidation.setVisible(false);
+		inputForm.add(balanceValidation, 1, 7);
 
 		return inputForm;
 	}
