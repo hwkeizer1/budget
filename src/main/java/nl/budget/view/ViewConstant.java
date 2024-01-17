@@ -45,6 +45,11 @@ public class ViewConstant {
 	
 	public static final String POSTS = "Posten";
 	
+	// Bank codes
+	public static final String ASN = "ASNB";
+	public static final String ABNAMRO = "ABNA";
+	public static final String TRIODOS = "TRIO";
+	public static final String ING = "INGB";
 	
 	// Table columns
 	public static final String TRANSACTIONS_DATE = "Datum";

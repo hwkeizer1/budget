@@ -2,6 +2,7 @@ package nl.budget.view.transaction;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import nl.budget.model.Account;
 import nl.budget.model.Transaction;
+import nl.budget.service.AccountService;
 import nl.budget.service.transaction.TransactionService;
 import nl.budget.view.AbstractView;
 import nl.budget.view.ViewConstant;
@@ -18,16 +21,19 @@ import nl.budget.view.ViewConstant;
 public class TransactionView extends AbstractView {
 
 	private final TransactionService transactionService;
+	private final AccountService accountService;
 	private VBox mainView;
 	private TableView<Transaction> transactionTableView;
 	
-	public TransactionView(TransactionService transactionService) {
+	public TransactionView(TransactionService transactionService, AccountService accountService) {
 		this.transactionService = transactionService;
+		this.accountService = accountService;
 		initComponents();
 	}
 	
 	public void searchNewTransactions() {
-		transactionService.searchNewTransactions();
+		List<Account> accounts = accountService.getList();
+		transactionService.searchNewTransactions(accounts);
 	}
 
 	@Override

@@ -42,7 +42,6 @@ public class CreateAccountDialog {
 
 	public void showAndWait(Window parent) {
 		VBox vbox = new VBox();
-		vbox.getStyleClass().add("dialog");
 		Scene scene = new Scene(vbox);
 		scene.getStylesheets().addAll(getClass().getResource(ViewCSS.DIALOG_RESOURCE).toExternalForm());
 		stage = new Stage();
