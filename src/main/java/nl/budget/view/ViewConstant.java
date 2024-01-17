@@ -3,6 +3,10 @@ package nl.budget.view;
 public class ViewConstant {
 	
 	private ViewConstant() {}
+	
+	// General
+	public static final String OK_BUTTON_TEXT = "OK";
+	public static final String CANCEL_BUTTON_TEXT = "Annuleren";
 
 	// Application
 	public static final String PROGRAM_TITLE = "Budget versie 0.0.1";
@@ -19,8 +23,6 @@ public class ViewConstant {
 	public static final String ELLIPSIS = "...";
 	public static final String BACKUP_FOLDER_LABEL = "Backup folder";
 	public static final String DOWNLOAD_FOLDER_LABEL = "Download folder";
-	public static final String OK_BUTTON_TEXT = "OK";
-	public static final String CANCEL_BUTTON_TEXT = "Annuleren";
 	
 	// AddAccountConfigurationDialog
 	public static final String DIALOG_ADD_ACCOUNT = "Rekening toevoegen";

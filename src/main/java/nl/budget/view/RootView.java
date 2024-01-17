@@ -1,7 +1,5 @@
 package nl.budget.view;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Component;
 
 import javafx.event.ActionEvent;
@@ -11,14 +9,12 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.BorderPane;
-import lombok.extern.slf4j.Slf4j;
-import nl.budget.model.Account;
+import javafx.stage.Window;
 import nl.budget.view.account.CreateAccountDialog;
 import nl.budget.view.configuration.ConfigurationDialog;
 import nl.budget.view.post.PostView;
 import nl.budget.view.transaction.TransactionView;
 
-@Slf4j
 @Component
 public class RootView {
 
@@ -26,10 +22,12 @@ public class RootView {
 	private MenuBar menuBar;
 	private final TransactionView transactionView;
 	private final PostView postView;
+	private final CreateAccountDialog createAccountDialog;
 
-	public RootView(TransactionView transactionView, PostView postView) {
+	public RootView(TransactionView transactionView, PostView postView, CreateAccountDialog createAccountDialog) {
 		this.transactionView = transactionView;
 		this.postView = postView;
+		this.createAccountDialog = createAccountDialog;
 		transactionView.initRootView(this);
 
 		initializeMenu();
@@ -41,14 +39,16 @@ public class RootView {
 		return rootWindow;
 	}
 	
+	public Window getWindow() {
+		return rootWindow.getScene().getWindow();
+	}
+	
 	public void showAccountView(ActionEvent actionEvent) {
 //		rootWindow.setCenter(accountView.getView());
 	}
 	
 	public void showCreateAccountDialog(ActionEvent actionEvent) {
-		CreateAccountDialog createAccountDialog = new CreateAccountDialog();
-		Optional<Account> account = createAccountDialog.showAndWait();
-		log.debug("Nieuw account: {}", account);
+		createAccountDialog.showAndWait(getWindow());	
 	}
 
 

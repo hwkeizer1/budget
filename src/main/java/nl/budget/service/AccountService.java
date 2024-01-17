@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import javafx.collections.FXCollections;
 import nl.budget.model.Account;
 import nl.budget.repository.AccountRepository;
+import nl.garvelink.iban.IBAN;
+import nl.garvelink.iban.IBANException;
 
 @Service
 public class AccountService extends ListService<Account> {
@@ -15,11 +17,14 @@ public class AccountService extends ListService<Account> {
 		comparator = (m1, m2) -> m1.getIban().compareTo(m2.getIban());
 	}
 	
-	public boolean isValidNewAccount(Account account) {
+	public boolean isValidNewIban(String iban) {
 		boolean isValid = true;
-		// TODO: validate account
-			// valid IBAN
-			// Account does not exists
+		isValid &= !((AccountRepository)repository).existsByIban(iban);
+		try {
+			IBAN.valueOf(iban);
+		} catch(IBANException e) {
+			isValid &= false;
+		}
 		return isValid;
 	}
 }
