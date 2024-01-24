@@ -8,9 +8,7 @@ import java.text.ParseException;
 import java.util.Locale;
 
 import javafx.util.converter.BigDecimalStringConverter;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class CurrencyConverter extends BigDecimalStringConverter {
 
 	DecimalFormat df = (DecimalFormat) NumberFormat.getInstance(Locale.getDefault());
@@ -20,10 +18,7 @@ public class CurrencyConverter extends BigDecimalStringConverter {
 		if (value == null) {
 			return "";
 		}
-		String valueString = df.format(value);
-		// TODO HK Strip out thousand separators for now because they are not part of the current regex, needs fix
-		String test = valueString.replace(".", "");
-		return test;
+		return df.format(value);
 	}
 
 	@Override
