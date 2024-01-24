@@ -26,7 +26,7 @@ import nl.budget.view.ViewCSS;
 import nl.budget.view.ViewConstant;
 import nl.budget.view.ViewMessage;
 import nl.budget.view.util.converter.CurrencyConverter;
-import nl.budget.view.util.converter.CurrencyFilter;
+import nl.budget.view.util.filter.CurrencyFilter;
 
 @Slf4j
 @Component

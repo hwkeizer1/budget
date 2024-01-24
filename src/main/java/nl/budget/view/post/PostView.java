@@ -27,8 +27,6 @@ public class PostView extends AbstractView {
 		mainView = new HBox();
 		Label label = new Label("Posten overzicht");
 		mainView.getChildren().add(label);
-		mainView.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(
-				javafx.scene.paint.Color.BLUE, javafx.scene.layout.CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY)));
 
 	}
 

@@ -1,4 +1,4 @@
-package nl.budget.view.util.converter;
+package nl.budget.view.util.filter;
 
 import java.util.function.UnaryOperator;
 

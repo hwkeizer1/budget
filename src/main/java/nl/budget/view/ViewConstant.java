@@ -45,6 +45,8 @@ public class ViewConstant {
 	public static final String SEARCH_NEW_TRANSACTIONS = "Zoek nieuwe transacties";
 	
 	public static final String POSTS = "Posten";
+	public static final String POSTS_OVERVIEW = "Overzicht";
+	public static final String EDIT_POSTS = "Posten bewerken";
 	
 	// Bank codes
 	public static final String ASN = "ASNB";
