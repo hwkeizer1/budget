@@ -12,18 +12,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import lombok.extern.slf4j.Slf4j;
 import nl.budget.model.Account;
 import nl.budget.service.AccountService;
 import nl.budget.view.ViewCSS;
 import nl.budget.view.ViewConstant;
 import nl.budget.view.ViewMessage;
+import nl.budget.view.util.converter.CurrencyConverter;
+import nl.budget.view.util.converter.CurrencyFilter;
 
+@Slf4j
 @Component
 public class CreateAccountDialog {
 
@@ -39,12 +44,15 @@ public class CreateAccountDialog {
 	private TextField balanceTextField;
 	private Label balanceValidation;
 
+	private Account account;
+
 	public CreateAccountDialog(AccountService accountService) {
 		this.accountService = accountService;
-
 	}
 
 	public void showAndWait(Window parent) {
+		account = new Account();
+
 		VBox vbox = new VBox();
 		Scene scene = new Scene(vbox);
 		scene.getStylesheets().addAll(getClass().getResource(ViewCSS.DIALOG_RESOURCE).toExternalForm());
@@ -74,18 +82,16 @@ public class CreateAccountDialog {
 			descriptionValidation.setVisible(true);
 			isValid &= false;
 		}
-		// TODO: implement currency TextFormatter for this field
 		if (balanceTextField.getText().isEmpty()) {
 			balanceValidation.setText(ViewMessage.BALANCE_REQUIRED);
 			balanceValidation.setVisible(true);
 			isValid &= false;
 		}
 		if (isValid) {
-			Account account = new Account();
 			account.setIban(ibanTextField.getText());
 			account.setAccountHolder(accountHolderTextField.getText());
 			account.setDescription(descriptionTextField.getText());
-			account.setBalance(new BigDecimal(balanceTextField.getText()));
+			log.debug("ACCOUNT: {}", account);
 			accountService.save(account);
 			stage.close();
 		}
@@ -104,8 +110,8 @@ public class CreateAccountDialog {
 		inputForm.add(ibanLabel, 0, 0);
 		ibanTextField = new TextField();
 		ibanTextField.setMinWidth(250);
-		ibanTextField.focusedProperty().addListener(
-				(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+		ibanTextField.focusedProperty()
+				.addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 					if (newValue) {
 						ibanValidation.setVisible(false);
 					}
@@ -120,8 +126,8 @@ public class CreateAccountDialog {
 		inputForm.add(accountHolderLabel, 0, 2);
 		accountHolderTextField = new TextField();
 		accountHolderTextField.setMinWidth(250);
-		accountHolderTextField.focusedProperty().addListener(
-				(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+		accountHolderTextField.focusedProperty()
+				.addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 					if (newValue) {
 						accountHolderValidation.setVisible(false);
 					}
@@ -136,8 +142,8 @@ public class CreateAccountDialog {
 		inputForm.add(descriptionLabel, 0, 4);
 		descriptionTextField = new TextField();
 		descriptionTextField.setMinWidth(250);
-		descriptionTextField.focusedProperty().addListener(
-				(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+		descriptionTextField.focusedProperty()
+				.addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 					if (newValue) {
 						descriptionValidation.setVisible(false);
 					}
@@ -147,23 +153,29 @@ public class CreateAccountDialog {
 		descriptionValidation.getStyleClass().add(ViewCSS.VALIDATION);
 		descriptionValidation.setVisible(false);
 		inputForm.add(descriptionValidation, 1, 5);
-		
+
 		Label balanceLabel = new Label(ViewConstant.BALANCE_LABEL);
 		inputForm.add(balanceLabel, 0, 6);
 		balanceTextField = new TextField();
 		balanceTextField.setMinWidth(250);
-		balanceTextField.focusedProperty().addListener(
-				(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+		balanceTextField.focusedProperty()
+				.addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 					if (newValue) {
 						balanceValidation.setVisible(false);
 					}
 				});
+
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		TextFormatter<BigDecimal> currencyFormatter = new TextFormatter(new CurrencyConverter(), 0,
+				new CurrencyFilter());
+		currencyFormatter.valueProperty().bindBidirectional(account.balanceProperty());
+		balanceTextField.setTextFormatter(currencyFormatter);
+
 		inputForm.add(balanceTextField, 1, 6);
 		balanceValidation = new Label();
 		balanceValidation.getStyleClass().add(ViewCSS.VALIDATION);
 		balanceValidation.setVisible(false);
 		inputForm.add(balanceValidation, 1, 7);
-
 		return inputForm;
 	}
 
