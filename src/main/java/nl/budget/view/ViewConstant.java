@@ -68,4 +68,11 @@ public class ViewConstant {
 	public static final String TRANSACTIONS_CURRENCY_TYPE = "Valuta type";
 	public static final String TRANSACTIONS_AMOUNT = "Bedrag";
 	public static final String TRANSACTIONS_DESCRIPTION = "Omschrijving";
+	
+	public static final String POSTS_CATEGORY = "Categorie";
+	public static final String POSTS_RESERVE = "Reservering";
+	public static final String POSTS_BUDGET = "Begroting";
+	public static final String POSTS_BALANCE = "Balans";
+	public static final String POSTS_ACCOUNT = "Rekening";
+	
 }

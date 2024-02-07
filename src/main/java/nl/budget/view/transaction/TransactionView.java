@@ -54,9 +54,7 @@ public class TransactionView extends AbstractView {
 
 	@Override
 	public void initComponents() {
-		
 		mainView = new VBox();
-		createTransactionTableView();
 		mainView.getChildren().addAll(createTransactionTableView());
 	}
 
