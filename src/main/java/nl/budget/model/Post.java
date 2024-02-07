@@ -14,6 +14,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import javafx.beans.property.LongProperty;
@@ -38,6 +40,8 @@ public class Post implements Externalizable {
 	private final transient ObjectProperty<BigDecimal> budget = new SimpleObjectProperty<>();
 	
 	private final transient ObjectProperty<BigDecimal> balance = new SimpleObjectProperty<>();
+	
+	private transient ObjectProperty<Account> account = new SimpleObjectProperty<>();
 	
 	@OneToMany(mappedBy = "post")
 	private List<Transaction> transactions;
@@ -102,6 +106,20 @@ public class Post implements Externalizable {
 	
 	public ObjectProperty<BigDecimal> balanceProperty() {
 		return balance;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="account", nullable=false)
+	public Account getAccount() {
+		return account.get();
+	}
+	
+	public void setAccount(Account account) {
+		this.account.set(account);
+	}
+	
+	public ObjectProperty<Account> accountProperty() {
+		return account;
 	}
 	
 	@Override

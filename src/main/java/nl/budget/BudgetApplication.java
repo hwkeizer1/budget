@@ -55,6 +55,7 @@ public class BudgetApplication {
 				post.setReserve(new BigDecimal("200.00"));
 				post.setBudget(new BigDecimal("400.00"));
 				post.setBalance(new BigDecimal("123.89"));
+				post.setAccount(account);
 				postRepository.save(post);
 			} else {
 				post = postRepository.findByCategory("Voeding").get();

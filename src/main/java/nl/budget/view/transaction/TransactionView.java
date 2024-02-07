@@ -12,7 +12,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Window;
-import lombok.extern.slf4j.Slf4j;
 import nl.budget.model.Account;
 import nl.budget.model.Transaction;
 import nl.budget.service.AccountService;
@@ -21,7 +20,6 @@ import nl.budget.view.AbstractView;
 import nl.budget.view.ViewConstant;
 import nl.budget.view.util.Util;
 
-@Slf4j
 @Component
 public class TransactionView extends AbstractView {
 
