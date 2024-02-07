@@ -6,18 +6,22 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Window;
+import lombok.extern.slf4j.Slf4j;
 import nl.budget.model.Account;
 import nl.budget.model.Transaction;
 import nl.budget.service.AccountService;
 import nl.budget.service.transaction.TransactionService;
 import nl.budget.view.AbstractView;
 import nl.budget.view.ViewConstant;
+import nl.budget.view.util.Util;
 
+@Slf4j
 @Component
 public class TransactionView extends AbstractView {
 
@@ -44,7 +48,6 @@ public class TransactionView extends AbstractView {
 	}
 	
 	// TODO: this method should also be called when (right-?) clicking a transaction to add or update a single post
-	// 		 and also with menu option 'assign all not assigned transactions' (or something like that)
 	public void addPostToNewTransactions(List<Transaction> newTransactions) {
 		for (Transaction transaction : newTransactions) {
 			addPostToTransactionDialog.showAndWait(getWindow(), transaction);
@@ -80,8 +83,6 @@ public class TransactionView extends AbstractView {
 		TableColumn<Transaction, BigDecimal> amountColumn = new TableColumn<>(ViewConstant.TRANSACTIONS_AMOUNT);
 		TableColumn<Transaction, String> descriptionColumn = new TableColumn<>(ViewConstant.TRANSACTIONS_DESCRIPTION);
 		
-
-		
 		categoryColumn.setCellValueFactory(c -> c.getValue().postProperty().get() != null ? c.getValue().postProperty().get().categoryProperty() : null);
 		journalDateColumn.setCellValueFactory(cellData -> cellData.getValue().journalDateProperty());
 		numberColumn.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
@@ -91,6 +92,28 @@ public class TransactionView extends AbstractView {
 		currencyTypeColumn.setCellValueFactory(cellData -> cellData.getValue().currencyTypeProperty());
 		amountColumn.setCellValueFactory(cellData -> cellData.getValue().amountProperty());
 		descriptionColumn.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
+
+		balanceColumn.setCellFactory(c -> new TableCell<Transaction, BigDecimal>() {
+			@Override
+			protected void updateItem(BigDecimal value, boolean empty) {
+				super.updateItem(value, empty);
+				if (!empty) {
+					Util.styleBigDecimalNode(value, this);
+					setText(value.toString());
+				}
+			}
+		});
+
+		amountColumn.setCellFactory(c -> new TableCell<Transaction, BigDecimal>() {
+			@Override
+			protected void updateItem(BigDecimal value, boolean empty) {
+				super.updateItem(value, empty);
+				if (!empty) {
+					Util.styleBigDecimalNode(value, this);
+					setText(value.toString());
+				}
+			}
+		});
 		
 		transactionTableView.getColumns().add(categoryColumn);
 		transactionTableView.getColumns().add(journalDateColumn);
