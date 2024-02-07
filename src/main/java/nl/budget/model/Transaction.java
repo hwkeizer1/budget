@@ -7,6 +7,7 @@ import java.io.ObjectOutput;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
@@ -196,7 +197,8 @@ public class Transaction implements Externalizable {
 	@Override
 	public String toString() {
 		return getId()+", "+getJournalDate()+", "+getNumber()+", "+getTransactionId()+", "+getContraAccount() 
-				+", "+getBalance()+","+getCurrencyType()+", "+getAmount()+","+getDescription();
+				+", "+getBalance()+","+getCurrencyType()+", "+getAmount()+","+getDescription()+", "
+				+ (getPost() == null ? "" : getPost().getCategory());
 	}
 
 	@Override
@@ -221,6 +223,23 @@ public class Transaction implements Externalizable {
 		out.writeObject(getCurrencyType());
 		out.writeObject(getAmount());
 		out.writeObject(getDescription());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Transaction other = (Transaction) obj;
+		return Objects.equals(id.get(), other.id.get());
 	}
 
 

@@ -19,7 +19,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import lombok.extern.slf4j.Slf4j;
 import nl.budget.model.Account;
 import nl.budget.service.AccountService;
 import nl.budget.view.ViewCSS;
@@ -28,7 +27,6 @@ import nl.budget.view.ViewMessage;
 import nl.budget.view.util.converter.CurrencyConverter;
 import nl.budget.view.util.filter.CurrencyFilter;
 
-@Slf4j
 @Component
 public class CreateAccountDialog {
 
@@ -91,7 +89,6 @@ public class CreateAccountDialog {
 			account.setIban(ibanTextField.getText());
 			account.setAccountHolder(accountHolderTextField.getText());
 			account.setDescription(descriptionTextField.getText());
-			log.debug("ACCOUNT: {}", account);
 			accountService.save(account);
 			stage.close();
 		}
@@ -154,7 +151,7 @@ public class CreateAccountDialog {
 		descriptionValidation.setVisible(false);
 		inputForm.add(descriptionValidation, 1, 5);
 
-		Label balanceLabel = new Label(ViewConstant.BALANCE_LABEL);
+		Label balanceLabel = new Label(ViewConstant.CURRENT_BALANCE_LABEL);
 		inputForm.add(balanceLabel, 0, 6);
 		balanceTextField = new TextField();
 		balanceTextField.setMinWidth(250);

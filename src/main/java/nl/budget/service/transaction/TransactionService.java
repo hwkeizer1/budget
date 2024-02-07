@@ -1,5 +1,6 @@
 package nl.budget.service.transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +24,10 @@ public class TransactionService extends ListService<Transaction> {
 		comparator = (m1, m2) -> m1.getTransactionId().compareTo(m2.getTransactionId());
 	}
 
-	public void searchNewTransactions(List<Account> accounts) {
+	public List<Transaction> searchNewTransactions(List<Account> accounts) {
 		AbstractTransactionFinder finder = new AsnTransactionFinder(); // default for now....
-
+		List<Transaction> newTransactions = new ArrayList<>();
+		List<Transaction> foundTransactions = new ArrayList<>();
 		for (Account account : accounts) {
 			Optional<String> bankCode = IBANFields.getBankIdentifier(IBAN.valueOf(account.getIban()));
 			if (bankCode.isPresent()) {
@@ -46,9 +48,22 @@ public class TransactionService extends ListService<Transaction> {
 					throw new IllegalStateException("Invalid bank code: " + bankCode.get());
 				}
 			}
-			List<Transaction> newTransactions = finder.searchNewTransactionsForAccount(account);
-			saveAll(newTransactions);
+			foundTransactions.addAll(finder.searchNewTransactionsForAccount(account));
+			
+			// TODO: Transactions should be validated on missing transaction (correct order is essential!!!) as well
+			for (Transaction transaction : foundTransactions) {
+				// TODO: Investigate if usage of a generic repository in ListService makes sense because we need a cast anyway...
+				if (!((TransactionRepository) repository).existsByJournalDateAndNumber(transaction.getJournalDate(), transaction.getNumber())) {
+					newTransactions.add(transaction);
+				}
+			}
 		}
+		return saveAll(newTransactions);
+	}
+	
+	public List<Transaction> findTransactionsWithoutPost() {
+		// TODO: Investigate if usage of a generic repository in ListService makes sense because we need a cast anyway...
+		return ((TransactionRepository)repository).findByPost(null);
 	}
 
 }

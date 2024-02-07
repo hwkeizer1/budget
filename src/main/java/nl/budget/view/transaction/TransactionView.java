@@ -10,6 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Window;
 import nl.budget.model.Account;
 import nl.budget.model.Transaction;
 import nl.budget.service.AccountService;
@@ -22,18 +23,32 @@ public class TransactionView extends AbstractView {
 
 	private final TransactionService transactionService;
 	private final AccountService accountService;
+	private final UpdateTransactionPostDialog addPostToTransactionDialog;
+	
 	private VBox mainView;
 	private TableView<Transaction> transactionTableView;
 	
-	public TransactionView(TransactionService transactionService, AccountService accountService) {
+	public TransactionView(TransactionService transactionService, AccountService accountService,
+			UpdateTransactionPostDialog addPostToTransactionDialog) {
 		this.transactionService = transactionService;
 		this.accountService = accountService;
+		this.addPostToTransactionDialog = addPostToTransactionDialog;
 		initComponents();
 	}
 	
 	public void searchNewTransactions() {
 		List<Account> accounts = accountService.getList();
-		transactionService.searchNewTransactions(accounts);
+		List<Transaction> newTransactions = transactionService.searchNewTransactions(accounts);
+		// TODO: Insert the automatically assignment of posts here
+		addPostToNewTransactions(newTransactions);
+	}
+	
+	// TODO: this method should also be called when (right-?) clicking a transaction to add or update a single post
+	// 		 and also with menu option 'assign all not assigned transactions' (or something like that)
+	public void addPostToNewTransactions(List<Transaction> newTransactions) {
+		for (Transaction transaction : newTransactions) {
+			addPostToTransactionDialog.showAndWait(getWindow(), transaction);
+		}
 	}
 
 	@Override
@@ -41,7 +56,7 @@ public class TransactionView extends AbstractView {
 		
 		mainView = new VBox();
 		createTransactionTableView();
-		mainView.getChildren().add(transactionTableView);
+		mainView.getChildren().addAll(createTransactionTableView());
 	}
 
 	@Override
@@ -49,9 +64,10 @@ public class TransactionView extends AbstractView {
 		return mainView;
 	}
 	
-	private void createTransactionTableView() {
+	private TableView<Transaction> createTransactionTableView() {
 		
 		transactionTableView = new TableView<>();
+		transactionTableView.setPrefHeight(2000); // TODO: For now oversize so all rows are visible, solve with properties later
 		transactionTableView.setItems(transactionService.getObservableList());
 		
 		TableColumn<Transaction, String> categoryColumn = new TableColumn<>(ViewConstant.TRANSACTIONS_POST);
@@ -63,6 +79,8 @@ public class TransactionView extends AbstractView {
 		TableColumn<Transaction, String> currencyTypeColumn = new TableColumn<>(ViewConstant.TRANSACTIONS_CURRENCY_TYPE);
 		TableColumn<Transaction, BigDecimal> amountColumn = new TableColumn<>(ViewConstant.TRANSACTIONS_AMOUNT);
 		TableColumn<Transaction, String> descriptionColumn = new TableColumn<>(ViewConstant.TRANSACTIONS_DESCRIPTION);
+		
+
 		
 		categoryColumn.setCellValueFactory(c -> c.getValue().postProperty().get() != null ? c.getValue().postProperty().get().categoryProperty() : null);
 		journalDateColumn.setCellValueFactory(cellData -> cellData.getValue().journalDateProperty());
@@ -83,6 +101,11 @@ public class TransactionView extends AbstractView {
 		transactionTableView.getColumns().add(currencyTypeColumn);
 		transactionTableView.getColumns().add(amountColumn);
 		transactionTableView.getColumns().add(descriptionColumn);
+		
+		return transactionTableView;
 	}
-
+	
+	private Window getWindow() {
+		return mainView.getScene().getWindow();
+	}
 }

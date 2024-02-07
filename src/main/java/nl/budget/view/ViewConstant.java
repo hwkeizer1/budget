@@ -29,7 +29,10 @@ public class ViewConstant {
 	public static final String IBAN_LABEL = "IBAN";
 	public static final String ACCOUNT_HOLDER_LABEL = "Rekeninghouder";
 	public static final String DESCRIPTION_LABEL = "Omschrijving";
-	public static final String BALANCE_LABEL = "Huidige balans";
+	public static final String CURRENT_BALANCE_LABEL = "Huidige balans";
+	
+	// UpdateTransactionPostDialog
+	public static final String DIALOG_UPDATE_TRANSACTION_POST = "Wijzig transactie post";
 		
 	// Menu items
 	public static final String BUDGET = "Budget";
@@ -43,6 +46,7 @@ public class ViewConstant {
 	public static final String TRANSACTIONS = "Transacties";
 	public static final String TRANSACTIONS_OVERVIEW = "Overzicht";
 	public static final String SEARCH_NEW_TRANSACTIONS = "Zoek nieuwe transacties";
+	public static final String ADD_POSTS_TO_TRANSACTIONS = "Posten toekennen";
 	
 	public static final String POSTS = "Posten";
 	public static final String POSTS_OVERVIEW = "Overzicht";

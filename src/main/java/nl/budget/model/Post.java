@@ -106,7 +106,7 @@ public class Post implements Externalizable {
 	
 	@Override
 	public String toString() {
-		return "[" + getId() + ", " + getCategory() + ", " + getReserve() + ", " + getBudget() + ", " + getBalance() + "]";
+		return getCategory();
 	}
 	
 	@Override
