@@ -19,6 +19,7 @@ import nl.budget.service.transaction.TransactionService;
 import nl.budget.view.AbstractView;
 import nl.budget.view.ViewConstant;
 import nl.budget.view.util.Util;
+import nl.garvelink.iban.IBAN;
 
 @Component
 public class TransactionView extends AbstractView {
@@ -89,6 +90,22 @@ public class TransactionView extends AbstractView {
 		amountColumn.setCellValueFactory(cellData -> cellData.getValue().amountProperty());
 		descriptionColumn.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
 
+		/*
+		 * Format account column to pretty IBAN format
+		 */
+		accountColumn.setCellFactory(c -> new TableCell<Transaction, String>() {
+			@Override
+			protected void updateItem(String value, boolean empty) {
+				super.updateItem(value, empty);
+				if (!empty) {
+					setText(IBAN.toPretty(value));
+				}
+			}
+		});
+		
+		/*
+		 * Style balance column to red color for negative and green color for positive numbers 
+		 */
 		balanceColumn.setCellFactory(c -> new TableCell<Transaction, BigDecimal>() {
 			@Override
 			protected void updateItem(BigDecimal value, boolean empty) {
@@ -100,6 +117,9 @@ public class TransactionView extends AbstractView {
 			}
 		});
 
+		/*
+		 * Style amount column to red color for negative and green color for positive numbers 
+		 */
 		amountColumn.setCellFactory(c -> new TableCell<Transaction, BigDecimal>() {
 			@Override
 			protected void updateItem(BigDecimal value, boolean empty) {

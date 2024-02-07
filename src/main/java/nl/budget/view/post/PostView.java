@@ -10,10 +10,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import nl.budget.model.Post;
+import nl.budget.model.Transaction;
 import nl.budget.service.PostService;
 import nl.budget.view.AbstractView;
 import nl.budget.view.ViewConstant;
 import nl.budget.view.util.Util;
+import nl.garvelink.iban.IBAN;
 
 @Component
 public class PostView extends AbstractView {
@@ -87,6 +89,19 @@ public class PostView extends AbstractView {
 				if (!empty) {
 					Util.styleBigDecimalNode(value, this);
 					setText(value.toString());
+				}
+			}
+		});
+		
+		/*
+		 * Format account column to pretty IBAN format
+		 */
+		accountColumn.setCellFactory(c -> new TableCell<Post, String>() {
+			@Override
+			protected void updateItem(String value, boolean empty) {
+				super.updateItem(value, empty);
+				if (!empty) {
+					setText(IBAN.toPretty(value));
 				}
 			}
 		});
