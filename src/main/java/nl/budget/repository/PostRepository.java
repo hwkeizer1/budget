@@ -13,5 +13,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 	public boolean existsByCategoryAndMonthYear(String category, LocalDate monthYear);
 	
 	public Optional<Post> findByCategoryAndMonthYear(String category, LocalDate monthYear);
+	
+	public List<Post> findByMonthYear(LocalDate monthYear);
 
 }

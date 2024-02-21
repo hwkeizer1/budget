@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import javafx.collections.FXCollections;
+import lombok.extern.slf4j.Slf4j;
 import nl.budget.model.Account;
 import nl.budget.model.Transaction;
 import nl.budget.repository.TransactionRepository;
@@ -15,6 +16,7 @@ import nl.budget.view.ViewConstant;
 import nl.garvelink.iban.IBAN;
 import nl.garvelink.iban.IBANFields;
 
+@Slf4j
 @Service
 public class TransactionService extends ListService<Transaction> {
 
@@ -27,7 +29,6 @@ public class TransactionService extends ListService<Transaction> {
 	public List<Transaction> searchNewTransactions(List<Account> accounts) {
 		AbstractTransactionFinder finder = new AsnTransactionFinder(); // default for now....
 		List<Transaction> newTransactions = new ArrayList<>();
-		List<Transaction> foundTransactions = new ArrayList<>();
 		for (Account account : accounts) {
 			Optional<String> bankCode = IBANFields.getBankIdentifier(IBAN.valueOf(account.getIban()));
 			if (bankCode.isPresent()) {
@@ -48,9 +49,11 @@ public class TransactionService extends ListService<Transaction> {
 					throw new IllegalStateException("Invalid bank code: " + bankCode.get());
 				}
 			}
+			List<Transaction> foundTransactions = new ArrayList<>();
 			foundTransactions.addAll(finder.searchNewTransactionsForAccount(account));
 			
 			// TODO: Transactions should be validated on missing transaction (correct order is essential!!!) as well
+			// 		 Also check on duplicate transactions
 			for (Transaction transaction : foundTransactions) {
 				// TODO: Investigate if usage of a generic repository in ListService makes sense because we need a cast anyway...
 				if (!((TransactionRepository) repository).existsByJournalDateAndNumber(transaction.getJournalDate(), transaction.getNumber())) {

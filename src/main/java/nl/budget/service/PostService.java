@@ -1,5 +1,8 @@
 package nl.budget.service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import javafx.collections.FXCollections;
@@ -17,5 +20,11 @@ public class PostService  extends ListService<Post> {
 	
 	public boolean postAlreadyExistsForThisPeriod(Post post) {
 		return ((PostRepository)repository).existsByCategoryAndMonthYear(post.getCategory(), post.getMonthYear());
+	}
+	
+	public List<Post> getPostsForMonthYear(LocalDate monthYear) {
+		List<Post> posts = ((PostRepository)repository).findByMonthYear(monthYear);
+		posts.sort(comparator);
+		return posts;
 	}
 }
