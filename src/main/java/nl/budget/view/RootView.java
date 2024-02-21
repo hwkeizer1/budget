@@ -70,6 +70,7 @@ public class RootView {
 	
 	public void addUpdateTransactionPostsMenuItem(ActionEvent event) {
 		updateTransactionPostDialog.showAndWait(getWindow());
+		rootWindow.setCenter(transactionView.getView());
 	}
 
 	public void handlePostOverviewMenuItem(ActionEvent event) {

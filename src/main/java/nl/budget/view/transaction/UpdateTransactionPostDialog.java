@@ -1,5 +1,7 @@
 package nl.budget.view.transaction;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import javafx.event.ActionEvent;
@@ -41,7 +43,10 @@ public class UpdateTransactionPostDialog {
 	}
 
 	public void showAndWait(Window parent) {
-		transactionService.findTransactionsWithoutPost().forEach(t -> showAndWait(parent, t));
+		List<Transaction> transactions = transactionService.findTransactionsWithoutPost();
+		if (transactions.size() > 0) {
+			showAndWait(parent, transactions.getFirst());
+		}
 	}
 	
 	public void showAndWait(Window parent, Transaction transaction) {

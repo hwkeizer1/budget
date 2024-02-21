@@ -17,11 +17,14 @@ public class ListService<T> {
 	protected Comparator<T> comparator;
 
 	public ObservableList<T> getObservableList() {
+		observableList.sort(comparator);
 		return FXCollections.unmodifiableObservableList(observableList);
 	}
 
 	public List<T> getList() {
-		return Collections.unmodifiableList(repository.findAll());
+		List<T> list = repository.findAll();
+		list.sort(comparator);
+		return Collections.unmodifiableList(list);
 	}
 
 	public void addListener(ListChangeListener<T> listener) {

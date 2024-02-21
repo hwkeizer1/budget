@@ -61,6 +61,7 @@ public class TransactionView extends AbstractView {
 
 	@Override
 	public Pane getView() {
+		transactionTableView.refresh();
 		return mainView;
 	}
 	

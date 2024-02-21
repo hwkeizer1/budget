@@ -21,7 +21,7 @@ public class TransactionService extends ListService<Transaction> {
 	public TransactionService(TransactionRepository transactionRepository) {
 		repository = transactionRepository;
 		observableList = FXCollections.observableList(repository.findAll());
-		comparator = (m1, m2) -> m1.getTransactionId().compareTo(m2.getTransactionId());
+		comparator = (m1, m2) -> m2.getTransactionId().compareTo(m1.getTransactionId());
 	}
 
 	public List<Transaction> searchNewTransactions(List<Account> accounts) {
@@ -63,7 +63,9 @@ public class TransactionService extends ListService<Transaction> {
 	
 	public List<Transaction> findTransactionsWithoutPost() {
 		// TODO: Investigate if usage of a generic repository in ListService makes sense because we need a cast anyway...
-		return ((TransactionRepository)repository).findByPost(null);
+		List<Transaction> transactions = ((TransactionRepository)repository).findByPost(null);
+		transactions.sort(comparator);
+		return transactions;
 	}
 
 }
