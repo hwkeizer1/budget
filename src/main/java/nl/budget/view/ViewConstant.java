@@ -24,12 +24,18 @@ public class ViewConstant {
 	public static final String BACKUP_FOLDER_LABEL = "Backup folder";
 	public static final String DOWNLOAD_FOLDER_LABEL = "Download folder";
 	
-	// AddAccountConfigurationDialog
+	// CreateAccountDialog
 	public static final String DIALOG_ADD_ACCOUNT = "Rekening toevoegen";
 	public static final String IBAN_LABEL = "IBAN";
 	public static final String ACCOUNT_HOLDER_LABEL = "Rekeninghouder";
 	public static final String DESCRIPTION_LABEL = "Omschrijving";
 	public static final String CURRENT_BALANCE_LABEL = "Huidige balans";
+	
+	// CreatePostDialog
+	public static final String DIALOG_ADD_POST = "Post toevoegen";
+	public static final String START_BALANCE_LABEL = "Start balans";
+	public static final String BUDGET_LABEL = "Maand budget";
+	public static final String ACCOUNT_LABEL = "Rekening";
 	
 	// UpdateTransactionPostDialog
 	public static final String DIALOG_UPDATE_TRANSACTION_POST = "Wijzig transactie post";
@@ -50,6 +56,7 @@ public class ViewConstant {
 	
 	public static final String POSTS = "Posten";
 	public static final String POSTS_OVERVIEW = "Overzicht";
+	public static final String ADD_POST = "Post toevoegen";
 	public static final String EDIT_POSTS = "Posten bewerken";
 	
 	// Bank codes
@@ -70,9 +77,10 @@ public class ViewConstant {
 	public static final String TRANSACTIONS_DESCRIPTION = "Omschrijving";
 	
 	public static final String POSTS_CATEGORY = "Categorie";
-	public static final String POSTS_RESERVE = "Reservering";
+	public static final String POSTS_START_BALANCE = "Start balans";
 	public static final String POSTS_BUDGET = "Begroting";
-	public static final String POSTS_BALANCE = "Balans";
+	public static final String POSTS_END_BALANCE = "Eind balans";
 	public static final String POSTS_ACCOUNT = "Rekening";
+	public static final String POSTS_MONTH_YEAR = "Maand";
 	
 }

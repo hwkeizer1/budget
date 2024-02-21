@@ -1,6 +1,8 @@
 package nl.budget.view.post;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.stereotype.Component;
 
@@ -10,7 +12,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import nl.budget.model.Post;
-import nl.budget.model.Transaction;
 import nl.budget.service.PostService;
 import nl.budget.view.AbstractView;
 import nl.budget.view.ViewConstant;
@@ -24,6 +25,8 @@ public class PostView extends AbstractView {
 
 	private VBox mainView;
 	private TableView<Post> postTableView;
+	
+	DateTimeFormatter yearMonthFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
 
 	public PostView(PostService postService) {
 		this.postService = postService;
@@ -48,19 +51,34 @@ public class PostView extends AbstractView {
 		postTableView.setPrefHeight(2000); // TODO: For now oversize so all rows are visible, solve with properties later
 		postTableView.setItems(postService.getObservableList());
 		
+		TableColumn<Post, LocalDate> monthYearColumn = new TableColumn<>(ViewConstant.POSTS_MONTH_YEAR);
 		TableColumn<Post, String> categoryColumn = new TableColumn<>(ViewConstant.POSTS_CATEGORY);
-		TableColumn<Post, BigDecimal> reserveColumn = new TableColumn<>(ViewConstant.POSTS_RESERVE);
+		TableColumn<Post, BigDecimal> startBalanceColumn = new TableColumn<>(ViewConstant.POSTS_START_BALANCE);
 		TableColumn<Post, BigDecimal> budgetColumn = new TableColumn<>(ViewConstant.POSTS_BUDGET);
-		TableColumn<Post, BigDecimal> balanceColumn = new TableColumn<>(ViewConstant.POSTS_BALANCE);
+		TableColumn<Post, BigDecimal> endBalanceColumn = new TableColumn<>(ViewConstant.POSTS_END_BALANCE);
 		TableColumn<Post, String> accountColumn = new TableColumn<>(ViewConstant.POSTS_ACCOUNT);
 		
+		monthYearColumn.setCellValueFactory(cellData -> cellData.getValue().monthYearProperty());
 		categoryColumn.setCellValueFactory(c -> c.getValue().categoryProperty());
-		reserveColumn.setCellValueFactory(c -> c.getValue().reserveProperty());
+		startBalanceColumn.setCellValueFactory(c -> c.getValue().startBalanceProperty());
 		budgetColumn.setCellValueFactory(c -> c.getValue().budgetProperty());
-		balanceColumn.setCellValueFactory(cellData -> cellData.getValue().balanceProperty());
+		endBalanceColumn.setCellValueFactory(cellData -> cellData.getValue().endBalanceProperty());
 		accountColumn.setCellValueFactory(cellData -> cellData.getValue().accountProperty().get().ibanProperty());
 
-		reserveColumn.setCellFactory(c -> new TableCell<Post, BigDecimal>() {
+		/*
+		 * Format month-year column to show year and month only
+		 */
+		monthYearColumn.setCellFactory(c -> new TableCell<Post, LocalDate>() {
+			@Override
+			protected void updateItem(LocalDate value, boolean empty) {
+				super.updateItem(value, empty);
+				if (!empty) {
+					setText(value.format(yearMonthFormatter));
+				}
+			}
+		});
+		
+		startBalanceColumn.setCellFactory(c -> new TableCell<Post, BigDecimal>() {
 			@Override
 			protected void updateItem(BigDecimal value, boolean empty) {
 				super.updateItem(value, empty);
@@ -82,7 +100,7 @@ public class PostView extends AbstractView {
 			}
 		});
 		
-		balanceColumn.setCellFactory(c -> new TableCell<Post, BigDecimal>() {
+		endBalanceColumn.setCellFactory(c -> new TableCell<Post, BigDecimal>() {
 			@Override
 			protected void updateItem(BigDecimal value, boolean empty) {
 				super.updateItem(value, empty);
@@ -106,10 +124,11 @@ public class PostView extends AbstractView {
 			}
 		});
 		
+		postTableView.getColumns().add(monthYearColumn);
 		postTableView.getColumns().add(categoryColumn);
-		postTableView.getColumns().add(reserveColumn);
+		postTableView.getColumns().add(startBalanceColumn);
 		postTableView.getColumns().add(budgetColumn);
-		postTableView.getColumns().add(balanceColumn);
+		postTableView.getColumns().add(endBalanceColumn);
 		postTableView.getColumns().add(accountColumn);
 
 		return postTableView;

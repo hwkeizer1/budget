@@ -14,4 +14,8 @@ public class PostService  extends ListService<Post> {
 		observableList = FXCollections.observableList(repository.findAll());
 		comparator = (m1, m2) -> m1.getCategory().compareTo(m2.getCategory());	
 	}
+	
+	public boolean postAlreadyExistsForThisPeriod(Post post) {
+		return ((PostRepository)repository).existsByCategoryAndMonthYear(post.getCategory(), post.getMonthYear());
+	}
 }

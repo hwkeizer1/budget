@@ -42,7 +42,7 @@ public class BudgetApplication {
 			if (!accountRepository.existsByIban(iban.toPlainString())) {
 				account.setIban(iban.toPlainString());
 				account.setAccountHolder("M.Pietersen");
-				account.setDescription("betaalrekening");
+				account.setDescription("gezamenlijke betaalrekening");
 				account.setBalance(new BigDecimal("322.05"));
 				accountRepository.save(account);
 			} else {
@@ -50,15 +50,16 @@ public class BudgetApplication {
 			}
 			
 			Post post = new Post();
-			if (!postRepository.existsByCategory("Voeding")) {
+			if (!postRepository.existsByCategoryAndMonthYear("Voeding", LocalDate.of(2023, 10, 1))) {
 				post.setCategory("Voeding");
-				post.setReserve(new BigDecimal("200.00"));
+				post.setStartBalance(new BigDecimal("200.00"));
 				post.setBudget(new BigDecimal("400.00"));
-				post.setBalance(new BigDecimal("123.89"));
+				post.setEndBalance(new BigDecimal("123.89"));
 				post.setAccount(account);
+				post.setMonthYear(LocalDate.of(2023, 10, 1));
 				postRepository.save(post);
 			} else {
-				post = postRepository.findByCategory("Voeding").get();
+				post = postRepository.findByCategoryAndMonthYear("Voeding", LocalDate.of(2023, 10, 1)).get();
 			}
 
 			if (!transactionRepository.existsByJournalDateAndNumber(LocalDate.of(2023, 1, 19), 22469412)) {

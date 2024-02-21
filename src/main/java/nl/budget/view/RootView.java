@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Window;
 import nl.budget.view.account.CreateAccountDialog;
 import nl.budget.view.configuration.ConfigurationDialog;
+import nl.budget.view.post.CreatePostDialog;
 import nl.budget.view.post.PostView;
 import nl.budget.view.transaction.UpdateTransactionPostDialog;
 import nl.budget.view.transaction.TransactionView;
@@ -24,13 +25,15 @@ public class RootView {
 	private final TransactionView transactionView;
 	private final PostView postView;
 	private final CreateAccountDialog createAccountDialog;
+	private final CreatePostDialog createPostDialog;
 	private final UpdateTransactionPostDialog updateTransactionPostDialog;
 
 	public RootView(TransactionView transactionView, CreateAccountDialog createAccountDialog, PostView postView,
-			UpdateTransactionPostDialog addPostToTransactionsDialog) {
+			UpdateTransactionPostDialog addPostToTransactionsDialog, CreatePostDialog createPostDialog) {
 		this.transactionView = transactionView;
 		this.createAccountDialog = createAccountDialog;
 		this.postView = postView;
+		this.createPostDialog = createPostDialog;
 		this.updateTransactionPostDialog = addPostToTransactionsDialog;
 		transactionView.initRootView(this);
 
@@ -69,12 +72,16 @@ public class RootView {
 		updateTransactionPostDialog.showAndWait(getWindow());
 	}
 
-	public void handlePostOverviewMenuItem(ActionEvent actionEvent) {
+	public void handlePostOverviewMenuItem(ActionEvent event) {
 		rootWindow.setCenter(postView.getView());
 	}
 	
+	public void handleAddPostMenuItem(ActionEvent event) {
+		createPostDialog.showAndWait(getWindow());
+	}
+	
 	public void handleEditPostsMenuItem(ActionEvent event) {
-
+		// TODO: decide if this is the correct menu item
 	}
 
 	public void handleConfigMenuItem(ActionEvent actionEvent) {
@@ -125,10 +132,12 @@ public class RootView {
 		Menu postMenu = new Menu(ViewConstant.POSTS);
 		MenuItem postOverviewMenuItem = new MenuItem(ViewConstant.POSTS_OVERVIEW);
 		postOverviewMenuItem.setOnAction(this::handlePostOverviewMenuItem);
+		MenuItem addPostMenuItem = new MenuItem(ViewConstant.ADD_POST);
+		addPostMenuItem.setOnAction(this::handleAddPostMenuItem);
 		MenuItem editPostsMenuItem = new MenuItem(ViewConstant.EDIT_POSTS);
 		editPostsMenuItem.setOnAction(this::handleEditPostsMenuItem);
 		
-		postMenu.getItems().addAll(postOverviewMenuItem, editPostsMenuItem);
+		postMenu.getItems().addAll(postOverviewMenuItem, addPostMenuItem, editPostsMenuItem);
 
 		menuBar.getMenus().addAll(budgetMenu, accountMenu, transactionsMenu, postMenu);
 

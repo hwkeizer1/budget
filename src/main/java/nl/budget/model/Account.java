@@ -104,7 +104,7 @@ public class Account implements Externalizable {
 
 	@Override
 	public String toString() {
-		return "[" + getId() + ", " + getIban() + ", " + getAccountHolder() + ", " + getDescription() + ", " + getBalance() + "]";
+		return getIban() + " - " + getDescription();
 	}
 
 	@Override

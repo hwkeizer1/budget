@@ -16,4 +16,10 @@ public final class ViewMessage {
 	public static final String DESCRIPTION_REQUIRED = "De omschrijving moet ingevuld worden";
 	public static final String BALANCE_REQUIRED = "De balans moet ingevuld worden";
 	
+	// CreatePostDialog
+	public static final String CATEGORY_REQUIRED = "De categorie moet ingevuld worden";
+	public static final String BUDGET_REQUIRED = "Het maand budget moet ingevuld worden";
+	public static final String ACCOUNT_REQUIRED = "De rekening moet ingevuld worden";
+	public static final String CATEGORY_ALREADY_EXISTS = "De categorie bestaat al voor deze periode, kies een andere categorie";
+	
 }
